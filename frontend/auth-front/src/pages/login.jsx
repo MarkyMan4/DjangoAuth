@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
     state = {
@@ -13,7 +14,7 @@ class Login extends Component {
             <div className="row">
                 <div className="col-md-4"></div>
                 <div className="mt-5 border shadow text-center col-md-4">
-                    <div className="m-5">
+                    <div className="mt-5">
                         <form>
                             <label>
                                 <b>Username</b> <br />
@@ -26,8 +27,9 @@ class Login extends Component {
                             </label>
                         </form>
                         <p className="mt-2 text-danger">{this.state.invalidLoginText}</p>
-                        <input className="btn btn-primary mt-3" onClick={this.handleSubmit} type="submit" value="Submit" />
+                        <input className="btn btn-primary mt-3" onClick={this.handleSubmit} type="submit" value="Login" />
                     </div>
+                    <Link to="/register"><p className="mt-4">Don't have an account? Sign up</p></Link>
                 </div>
                 <div className="col-md-4"></div>
             </div>
@@ -47,8 +49,10 @@ class Login extends Component {
      * Update this so it doesn't have to refresh the window after loggin in.
      */
     handleSubmit = (event) => {
+        let baseUrl = 'http://127.0.0.1:8000';
+
         axios.post(
-            'http://127.0.0.1:8000/api/auth/login',
+            baseUrl + '/api/auth/login',
             {
                 username: this.state.username,
                 password: this.state.password

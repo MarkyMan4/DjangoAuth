@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
 
 class Home extends Component {
     state = {
@@ -35,7 +34,7 @@ class Home extends Component {
             }
         ).then(res => {
             localStorage.removeItem('token');
-            window.location.reload(true);
+            window.location.reload(false);
         }).catch(err => {
             console.log(err);
         })

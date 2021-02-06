@@ -3,12 +3,22 @@ import './App.css';
 import Login from './pages/login';
 import Home from './pages/home';
 import About from './pages/about';
+import Register from './pages/register';
 import Nav from './components/nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   // if the user isn't logged in, show the login page, otherwise go to home page
-  let pageToDisplay = <Login />
+  let pageToDisplay = (
+    <Router>
+      <Switch>
+        <div>
+          <Route path="/" exact component={Login} />
+          <Route path="/register" component={Register} />
+        </div>
+      </Switch>
+    </Router>
+  );
 
   if(isUserAuthenticated()) {
     pageToDisplay = (
