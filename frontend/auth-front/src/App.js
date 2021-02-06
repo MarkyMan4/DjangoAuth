@@ -12,10 +12,8 @@ function App() {
   let pageToDisplay = (
     <Router>
       <Switch>
-        <div>
-          <Route path="/" exact component={Login} />
-          <Route path="/register" component={Register} />
-        </div>
+        <Route path="/" exact component={Login} />
+        <Route path="/register" component={Register} />
       </Switch>
     </Router>
   );
@@ -23,13 +21,11 @@ function App() {
   if(isUserAuthenticated()) {
     pageToDisplay = (
       <Router>
-        <div>
-          <Nav />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/about" component={About} />
-          </Switch>
-        </div>
+        <Nav />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/about" component={About} />
+        </Switch>
       </Router>
     );
   }
