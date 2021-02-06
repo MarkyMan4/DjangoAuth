@@ -1,69 +1,68 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-class Login extends Component {
-    state = {
-        username: '',
-        password: '',
-        invalidLoginText: ''
+function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [invalidLoginText, setInvalidLoginText] = useState('');
+
+
+    const handleUsernameInput = (event) => {
+        setUsername(event.target.value);
     }
 
-    render() {
-        return (
-            <div className="row">
-                <div className="col-md-4"></div>
-                <div className="mt-5 border shadow text-center col-md-4">
-                    <div className="mt-5">
-                        <form>
-                            <label>
-                                <b>Username</b> <br />
-                                <input type="text" value={this.state.username} onChange={this.handleUsernameInput} />
-                            </label>
-                            <br />
-                            <label className="mt-3">
-                                <b>Password</b> <br />
-                                <input type="password" value={this.state.password} onChange={this.handlePasswordInput} />
-                            </label>
-                        </form>
-                        <p className="mt-2 text-danger">{this.state.invalidLoginText}</p>
-                        <input className="btn btn-primary mt-3" onClick={this.handleSubmit} type="submit" value="Login" />
-                    </div>
-                    <Link to="/register"><p className="mt-4">Don't have an account? Sign up</p></Link>
-                </div>
-                <div className="col-md-4"></div>
-            </div>
-        );
-    }
-
-    handleUsernameInput = (event) => {
-        this.setState({username: event.target.value});
-    }
-
-    handlePasswordInput = (event) => {
-        this.setState({password: event.target.value});
+    const handlePasswordInput = (event) => {
+        setPassword(event.target.value);
     }
 
     /*
      * Uses the username and password to try to authenticate the user
      * Update this so it doesn't have to refresh the window after loggin in.
      */
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         let baseUrl = 'http://127.0.0.1:8000';
 
         axios.post(
             baseUrl + '/api/auth/login',
             {
-                username: this.state.username,
-                password: this.state.password
+                username: username,
+                password: password
             }
         ).then(res => {
             localStorage.setItem('token', res.data.token);
             window.location.reload(false);
         }).catch(res => {
-            this.setState({invalidLoginText: 'Invalid username or password!'});
+            setInvalidLoginText('Invalid username or password!');
         });
     }
+
+    return (
+        <div className="row">
+            <div className="col-md-4"></div>
+            <div className="mt-5 border shadow text-center col-md-4">
+                <h1 className="mt-2">Login</h1>
+                <hr />
+                <div className="mt-2">
+                    <form>
+                        <label>
+                            <b>Username</b> <br />
+                            <input type="text" value={username} onChange={handleUsernameInput} />
+                        </label>
+                        <br />
+                        <label className="mt-3">
+                            <b>Password</b> <br />
+                            <input type="password" value={password} onChange={handlePasswordInput} />
+                        </label>
+                    </form>
+                    <p className="mt-2 text-danger">{invalidLoginText}</p>
+                    <input className="btn btn-primary mt-3" onClick={handleSubmit} type="submit" value="Login" />
+                </div>
+                <Link to="/register"><p className="mt-4">Don't have an account? Sign up</p></Link>
+            </div>
+            <div className="col-md-4"></div>
+        </div>
+    );
 }
 
 export default Login;

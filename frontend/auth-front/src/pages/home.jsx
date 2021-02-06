@@ -1,25 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import axios from 'axios';
 
-class Home extends Component {
-    state = {
-        count: 0
-    }
-
-    /*
-     * This is just a barebones home page with a logout button.
-     * Logging out redirects to the home page.
-     */
-    render() {
-        return (
-            <div>
-                <h1>Home</h1>
-                <button className="btn btn-success" onClick={this.logout}>Logout</button>
-            </div>
-        );
-    }
-
-    logout = () => {
+function Home() {
+    const logout = () => {
         // const history = useHistory();
 
         console.log('Token ' + localStorage.getItem('token'));
@@ -39,6 +22,17 @@ class Home extends Component {
             console.log(err);
         })
     }
+
+    /*
+     * This is just a barebones home page with a logout button.
+     * Logging out redirects to the home page.
+     */
+    return (
+        <div>
+            <h1>Home</h1>
+            <button className="btn btn-success" onClick={logout}>Logout</button>
+        </div>
+    );
 }
 
 export default Home;
