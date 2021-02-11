@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { authenticateUser } from '../api/authRequests';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -21,19 +21,14 @@ function Login() {
      * Update this so it doesn't have to refresh the window after loggin in.
      */
     const handleSubmit = (event) => {
-        let baseUrl = 'http://127.0.0.1:8000';
-
-        axios.post(
-            baseUrl + '/api/auth/login',
-            {
-                username: username,
-                password: password
+        authenticateUser(username, password).then(res => {
+            if(res) {
+                console.log('yes');
+                window.location.reload(false);
             }
-        ).then(res => {
-            localStorage.setItem('token', res.data.token);
-            window.location.reload(false);
-        }).catch(res => {
-            setInvalidLoginText('Invalid username or password!');
+            else {
+                setInvalidLoginText('Invalid username or password!');
+            }
         });
     }
 

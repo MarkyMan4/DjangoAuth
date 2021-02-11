@@ -1,26 +1,11 @@
 import React from 'react';
-import axios from 'axios';
+import { logoutUser } from '../api/authRequests';
 
 function Home() {
     const logout = () => {
-        // const history = useHistory();
-
-        console.log('Token ' + localStorage.getItem('token'));
-        let baseURL = 'http://127.0.0.1:8000'
-        axios.post(
-            baseURL + '/api/auth/logout',
-            {},
-            {
-                headers: {
-                    'Authorization': 'Token ' + localStorage.getItem('token')
-                }
-            }
-        ).then(res => {
-            localStorage.removeItem('token');
+        logoutUser().then(res => {
             window.location.reload(false);
-        }).catch(err => {
-            console.log(err);
-        })
+        });
     }
 
     /*

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { React, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { registerUser } from '../api/authRequests';
 
 function Register() {
     const [username, setUsername] = useState('');
@@ -31,41 +31,13 @@ function Register() {
      * redirect to home page after register, currently still showing /register in url
      */
     const handleSubmit = (event) => {
-        let baseUrl = 'http://127.0.0.1:8000';
-        let headers = {
-            header: {
-                'Content-Type': 'application/json'
-            }
-        };
-
-        axios.post(
-            baseUrl + '/api/auth/register',
-            {
-                username: username,
-                email: email,
-                password: password
-            },
-            headers
-        ).then(res => {
-            localStorage.setItem('token', res.data.token);
-            history.push('/');
-            window.location.reload(false);
-        }).catch(err => {
-            // if the response says the user already exists, display the message 
-            // from the response on screen
-            if(err.response) {
-                if(err.response.data.username) {
-                    setErrorText(err.response.data.username[0]);
-                }
-                else if(err.response.data.email) {
-                    setErrorText(err.response.data.email[0]);
-                }
-                else {
-                    setErrorText('Error registering new user');
-                }
+        registerUser(username, email, password).then(res => {
+            if(res === "success") {
+                history.push('/');
+                window.location.reload(false);
             }
             else {
-                setErrorText('Error registering new user');
+                setErrorText(res);
             }
         });
     }
