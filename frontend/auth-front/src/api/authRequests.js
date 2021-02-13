@@ -2,6 +2,21 @@ import axios from 'axios';
 
 const baseUrl = 'http://127.0.0.1:8000';
 
+export const getUser = async () => {
+    return axios.get(
+        baseUrl + '/api/auth/user',
+        {
+            headers: {
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            }
+        }
+    ).then(res => {
+        return res.data.username;
+    }).catch(err => {
+        return 'Error retrieving user info';
+    });
+}
+
 /*
  * Attempt to authenticate a user given their username and password
  */
@@ -16,7 +31,7 @@ export const authenticateUser = async (username, password) => {
         localStorage.setItem('token', res.data.token);
 
         return true;
-    }).catch(res => {
+    }).catch(err => {
         return false;
     });
 }
