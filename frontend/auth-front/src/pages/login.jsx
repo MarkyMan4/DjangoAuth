@@ -23,7 +23,6 @@ function Login() {
     const handleSubmit = (event) => {
         authenticateUser(username, password).then(res => {
             if(res) {
-                console.log('yes');
                 window.location.reload(false);
             }
             else {
