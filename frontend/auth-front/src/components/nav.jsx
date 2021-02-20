@@ -16,15 +16,15 @@ function Nav() {
 
     return (
         <div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow mb-4">
-                <Link style={navStyle} to="/">
-                    <a className="navbar-brand">Some Site</a>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow mb-4">
+                <Link className="navbar-brand" to="/">
+                    Some Site
                 </Link>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav mr-auto">
+                <div className="collapse navbar-collapse" id="navbarText">
+                    <ul className="navbar-nav mr-auto">
                         <Link style={navStyle} to="/">
                             <li className="mr-3">Home</li>
                         </Link>
@@ -32,7 +32,7 @@ function Nav() {
                             <li>About</li>
                         </Link>
                     </ul>
-                    <span class="navbar-text">
+                    <span className="navbar-text">
                         <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
                     </span>
                 </div>
